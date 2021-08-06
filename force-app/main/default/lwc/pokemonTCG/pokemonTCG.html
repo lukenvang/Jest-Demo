@@ -1,0 +1,26 @@
+<template>
+    <lightning-layout multiple-rows>
+        <lightning-layout-item size="12" padding="around-small">
+            <c-pokemon-t-c-g-search onsearch={handleSearch} onclear={handleClear}></c-pokemon-t-c-g-search>
+        </lightning-layout-item>
+        <template if:true={cards}>
+            <template for:each={cards} for:item="c">
+                <lightning-layout-item size="3" key={c.id} padding="around-small">
+                    <div class="slds-p-around_small card" style="background-color:#FAD61D">
+                        <p class="slds-text-align_center" style="font-weight: bolder;">Card Id: {c.id}</p>
+                        <p class="slds-text-align_center" style="font-weight: bolder;">Pokemon Name: {c.name}</p>
+                        <p class="slds-text-align_center" style="font-weight: bolder;">Rarity: {c.rarity}</p>
+                        <p class="slds-text-align_center" style="font-weight: bolder;"
+                            if:true={c.cardmarket}>Card Market Average Price:
+                            <lightning-formatted-number value={c.cardmarket.prices.averageSellPrice}
+                                format-style="currency" currency-code="USD"></lightning-formatted-number>
+                        </p>
+                        <img if:true={c.images.small} src={c.images.small}
+                            style="display: block;margin-left: auto;margin-right: auto;" />
+                    </div>
+                </lightning-layout-item>
+            </template>
+        </template>
+        <lightning-spinner if:true={loading}></lightning-spinner>
+    </lightning-layout>
+</template>
